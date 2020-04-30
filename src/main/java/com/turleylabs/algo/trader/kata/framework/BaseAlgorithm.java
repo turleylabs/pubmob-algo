@@ -23,17 +23,20 @@ public abstract class BaseAlgorithm {
     protected abstract void initialize();
 
 
-    public void processData(Slice data){
-        if(data.get("TQQQ") != null) {
-            currentDate = data.getDate();
-            currentSlice = data;
-
-            for(SimpleMovingAverage movingAverage : movingAverages) {
-                movingAverage.addData(data.get(movingAverage.getSymbol()).getPrice());
-            }
-
-            this.onData(data);
+    public void processData(Slice data) {
+        if (data.get("TQQQ") == null) {
+            return;
         }
+
+        currentDate = data.getDate();
+        currentSlice = data;
+
+        for (SimpleMovingAverage movingAverage : movingAverages) {
+            movingAverage.addData(data.get(movingAverage.getSymbol()).getPrice());
+        }
+
+        this.onData(data);
+
     }
 
     protected abstract void onData(Slice data);
@@ -58,8 +61,8 @@ public abstract class BaseAlgorithm {
         return currentDate;
     }
 
-    protected SimpleMovingAverage SMA(String symbol, int i) {
-        SimpleMovingAverage movingAverage = new SimpleMovingAverage(symbol, i);
+    protected SimpleMovingAverage createAndAddSimpleMovingAverage(String symbol, int windowSize) {
+        SimpleMovingAverage movingAverage = new SimpleMovingAverage(symbol, windowSize);
         this.movingAverages.add(movingAverage);
         return movingAverage;
     }
@@ -70,7 +73,7 @@ public abstract class BaseAlgorithm {
 
     protected void setHoldings(String symbol, double amount) {
         double averagePrice = currentSlice.get(symbol).getPrice();
-        int shares = (int)((amount * this.getCash()) / averagePrice);
+        int shares = (int) ((amount * this.getCash()) / averagePrice);
         Trade trade = new Trade(symbol, currentDate, shares, averagePrice, 1);
         trades.add(trade);
         portfolio.put(symbol, new Holding(averagePrice, shares));
