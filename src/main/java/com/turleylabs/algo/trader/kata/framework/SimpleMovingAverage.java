@@ -5,11 +5,11 @@ import java.util.LinkedList;
 public class SimpleMovingAverage {
     LinkedList<Double> buffer = new LinkedList<>();
     private String symbol;
-    private int length;
+    private int windowSize;
 
-    public SimpleMovingAverage(String symbol, int length) {
+    public SimpleMovingAverage(String symbol, int windowSize) {
         this.symbol = symbol;
-        this.length = length;
+        this.windowSize = windowSize;
     }
 
     public double getValue() {
@@ -17,13 +17,13 @@ public class SimpleMovingAverage {
     }
 
     public boolean isReady() {
-        return buffer.size() == length;
+        return buffer.size() == windowSize;
     }
 
     public void addData(double data) {
         this.buffer.add(data);
 
-        if (this.buffer.size() > length)
+        if (this.buffer.size() > windowSize)
         {
             this.buffer.removeFirst();
         }

@@ -1,0 +1,9 @@
+2011-01-04 - Buy TQQQ Vix 17.3800. above 10 MA 0.0231
+2011-01-14 - Sell TQQQ taking profits. Gain 0.0960. Vix 15.4600
+2011-01-25 - Buy TQQQ Vix 17.5900. above 10 MA 0.0007
+2011-02-16 - Sell TQQQ taking profits. Gain 0.1259. Vix 16.7200
+2011-04-07 - Buy TQQQ Vix 17.1100. above 10 MA 0.0031
+2011-05-25 - Sell TQQQ 10 day below 21 day. Gain -0.0300. Vix 17.0700
+2011-07-11 - Buy TQQQ Vix 18.3900. above 10 MA 0.0194
+2011-07-27 - Sell TQQQ high volatility. Gain 0.0013. Vix 22.9800
+2012-01-20 - Buy TQQQ Vix 18.2800. above 10 MA 0.0602
