@@ -78,7 +78,7 @@ public class RefactorMeAlgorithm extends BaseAlgorithm {
     private void sellIfNecessary(Slice data, double movingAverage10Value, double movingAverage21Value, double movingAverage50Value, double movingAverage200Value) {
         double change = (data.get(symbol).getPrice() - portfolio.get(symbol).getAveragePrice()) / portfolio.get(symbol).getAveragePrice();
 
-        if (didPriceGoBelow50DayMA(data)) {
+        if (didSomethingAroundTriggerToSell(data)) {
             this.log(String.format("Sell %s loss of 50 day. Gain %.4f. Vix %.4f", symbol, change, lastVix.getClose()));
         } else if (hasHighVolatility()) {
             this.log(String.format("Sell %s high volatility. Gain %.4f. Vix %.4f", symbol, change, lastVix.getClose()));
@@ -86,7 +86,10 @@ public class RefactorMeAlgorithm extends BaseAlgorithm {
             this.log(String.format("Sell %s 10 day below 21 day. Gain %.4f. Vix %.4f", symbol, change, lastVix.getClose()));
         } else if (isPriceCloseToPeak(data, movingAverage50Value, movingAverage200Value)) {
             this.log(String.format("Sell %s taking profits. Gain %.4f. Vix %.4f", symbol, change, lastVix.getClose()));
+        }
 
+        if (!notReallySelling(data, movingAverage10Value, movingAverage21Value)
+                && (isPriceCloseToPeak(data, movingAverage50Value, movingAverage200Value))) {
             tookProfits = true;
         }
 
@@ -94,15 +97,20 @@ public class RefactorMeAlgorithm extends BaseAlgorithm {
             this.liquidate(symbol);
     }
 
-    private boolean shouldLiquidate(Slice data, double movingAverage50Value, double movingAverage10Value, double movingAverage21Value, double movingAverage200Value) {
-        return didPriceGoBelow50DayMA(data)
-        || hasHighVolatility()
-        || did10DayMACrossBelow21DayMA(movingAverage10Value, movingAverage21Value)
-        ||isPriceCloseToPeak(data, movingAverage50Value, movingAverage200Value);
+    private boolean notReallySelling(Slice data, double movingAverage10Value, double movingAverage21Value) {
+        return didSomethingAroundTriggerToSell(data) ||
+                hasHighVolatility() ||
+                did10DayMACrossBelow21DayMA(movingAverage10Value, movingAverage21Value);
     }
 
-    private boolean didPriceGoBelow50DayMA(Slice data) {
-        return data.get(symbol).getPrice() < (movingAverage50.getValue() * .93) && !boughtBelow50DayMovingAverage;
+    private boolean shouldLiquidate(Slice data, double movingAverage50Value, double movingAverage10Value, double movingAverage21Value, double movingAverage200Value) {
+        return notReallySelling(data, movingAverage10Value, movingAverage21Value)
+                || isPriceCloseToPeak(data, movingAverage50Value, movingAverage200Value);
+    }
+
+    private boolean didSomethingAroundTriggerToSell(Slice data) {
+        boolean boughtAbove50DayMA = !boughtBelow50DayMovingAverage;
+        return data.get(symbol).getPrice() < (movingAverage50.getValue() * .93) && boughtAbove50DayMA;
     }
 
     private boolean isPriceNotCloseToPeak(Slice data, double movingAverage50Value, double movingAverage200Value) {
