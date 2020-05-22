@@ -13,4 +13,3 @@
 
 - [ x ] Introduce State Machine with took profits and everything else
 
-- change
