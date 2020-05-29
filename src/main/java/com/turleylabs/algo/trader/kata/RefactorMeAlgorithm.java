@@ -1,10 +1,6 @@
 package com.turleylabs.algo.trader.kata;
 
-import com.turleylabs.algo.trader.kata.framework.BaseAlgorithm;
-import com.turleylabs.algo.trader.kata.framework.CBOE;
-import com.turleylabs.algo.trader.kata.framework.Holding;
-import com.turleylabs.algo.trader.kata.framework.SimpleMovingAverage;
-import com.turleylabs.algo.trader.kata.framework.Slice;
+import com.turleylabs.algo.trader.kata.framework.*;
 
 import java.time.LocalDate;
 
@@ -13,12 +9,37 @@ public class RefactorMeAlgorithm extends BaseAlgorithm {
     public final ProfitState DID_NOT_TAKE_PROFITS = new ProfitState() {
         @Override
         public ProfitState onData(Slice data, String symbol, Averages averages) {
-            if (doWeHold(symbol)) {
-                sellIfNecessary(data, averages);
-            } else {
-                buyIfNecessary(data, averages);
+            if (arePricesRisingNearTerm(data, averages)
+                    && isPriceNotCloseToPeak(data)
+                    && hasLowVolatility()
+                    && isPriceNearShortTermAverage(data, averages.movingAverage10.getValue())) {
+                RefactorMeAlgorithm.this.log(String.format("Buy %s Vix %.4f. above 10 MA %.4f", RefactorMeAlgorithm.this.symbol, lastVix.getClose(), (data.get(RefactorMeAlgorithm.this.symbol).getPrice() - averages.movingAverage10.getValue()) / averages.movingAverage10.getValue()
+                ));
+                double amount = 1.0;
+                RefactorMeAlgorithm.this.setHoldings(RefactorMeAlgorithm.this.symbol, amount);
+
+                boughtBelow50DayMovingAverage = data.get(RefactorMeAlgorithm.this.symbol).getPrice() < averages.movingAverage50.getValue();
+                return WE_HOLD;
             }
-            return profitState;
+            return DID_NOT_TAKE_PROFITS;
+        }
+    };
+    public final ProfitState WE_HOLD = new ProfitState() {
+        @Override
+        public ProfitState onData(Slice data, String symbol, Averages averages) {
+            logSellAction(data, averages);
+
+            if (!notReallySelling(data, averages)
+                    && (isPriceCloseToPeak(data, averages))) {
+                liquidate(symbol);
+                return TOOK_PROFITS;
+            }
+
+            if (shouldLiquidate(data)) {
+                liquidate(symbol);
+                return DID_NOT_TAKE_PROFITS;
+            }
+            return WE_HOLD;
         }
     };
     public final ProfitState TOOK_PROFITS = new ProfitState() {
@@ -87,26 +108,21 @@ public class RefactorMeAlgorithm extends BaseAlgorithm {
         return portfolio.getOrDefault(symbol, Holding.Default).getQuantity() > 0;
     }
 
-    private void sellIfNecessary(Slice data, Averages averages) {
-        double change = (data.get(symbol).getPrice() - portfolio.get(symbol).getAveragePrice()) / portfolio.get(symbol).getAveragePrice();
+    private void logSellAction(Slice data, Averages averages) {
+        smallStep(data, averages, data.get(symbol), portfolio.get(symbol), portfolio.get(symbol), symbol, lastVix.getClose());
+    }
+
+    private void smallStep(Slice data, Averages averages, Bar bar, Holding holding, Holding holding1, String symbol, double close) {
+        double change = (bar.getPrice() - holding.getAveragePrice()) / holding1.getAveragePrice();
 
         if (didSomethingAroundTriggerToSell(data)) {
-            this.log(String.format("Sell %s loss of 50 day. Gain %.4f. Vix %.4f", symbol, change, lastVix.getClose()));
+            this.log(String.format("Sell %s loss of 50 day. Gain %.4f. Vix %.4f", symbol, change, close));
         } else if (hasHighVolatility()) {
-            this.log(String.format("Sell %s high volatility. Gain %.4f. Vix %.4f", symbol, change, lastVix.getClose()));
+            this.log(String.format("Sell %s high volatility. Gain %.4f. Vix %.4f", symbol, change, close));
         } else if (did10DayMACrossBelow21DayMA(averages)) {
-            this.log(String.format("Sell %s 10 day below 21 day. Gain %.4f. Vix %.4f", symbol, change, lastVix.getClose()));
+            this.log(String.format("Sell %s 10 day below 21 day. Gain %.4f. Vix %.4f", symbol, change, close));
         } else if (isPriceCloseToPeak(data, averages)) {
-            this.log(String.format("Sell %s taking profits. Gain %.4f. Vix %.4f", symbol, change, lastVix.getClose()));
-        }
-
-        if (!notReallySelling(data, averages)
-                && (isPriceCloseToPeak(data, averages))) {
-            this.profitState = TOOK_PROFITS;
-        }
-
-        if (shouldLiquidate(data)) {
-            this.liquidate(symbol);
+            this.log(String.format("Sell %s taking profits. Gain %.4f. Vix %.4f", symbol, change, close));
         }
     }
 
@@ -137,20 +153,6 @@ public class RefactorMeAlgorithm extends BaseAlgorithm {
 
     private boolean did10DayMACrossBelow21DayMA(Averages averages) {
         return averages.movingAverage10.getValue() < 0.97 * averages.movingAverage21.getValue();
-    }
-
-    private void buyIfNecessary(Slice data, Averages averages) {
-        if (arePricesRisingNearTerm(data, averages)
-                && isPriceNotCloseToPeak(data)
-                && hasLowVolatility()
-                && isPriceNearShortTermAverage(data, averages.movingAverage10.getValue())) {
-            this.log(String.format("Buy %s Vix %.4f. above 10 MA %.4f", symbol, lastVix.getClose(), (data.get(symbol).getPrice() - averages.movingAverage10.getValue()) / averages.movingAverage10.getValue()
-            ));
-            double amount = 1.0;
-            this.setHoldings(symbol, amount);
-
-            boughtBelow50DayMovingAverage = data.get(symbol).getPrice() < averages.movingAverage50.getValue();
-        }
     }
 
     private boolean hasHighVolatility() {

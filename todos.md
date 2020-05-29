@@ -3,11 +3,12 @@
 - [x] Make sure we are green
 - [ ] State Machine
   - [x] Isolate Took Profits
-  - [-] Work out how many states
-- [ x ] handle did not take profits state
-- [ x ] create abstraction for moving averages
-- [ x ] Pass averages to state, not moving averages
-- [ ] Line 105--return state from sell / buy
+  - [x] Work out how many states
+- [x] handle did not take profits state
+- [x] create abstraction for moving averages
+- [x] Pass averages to state, not moving averages
+- [x] Line 105--return state from sell / buy 
+- [ ] We_Hold state - is it "clean"?
 
 # Next
 
