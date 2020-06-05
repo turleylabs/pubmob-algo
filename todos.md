@@ -8,10 +8,18 @@
 - [x] create abstraction for moving averages
 - [x] Pass averages to state, not moving averages
 - [x] Line 105--return state from sell / buy 
-- [ ] Make the state inner classes named (non-anonymous) 
-- [ ] We_Hold state - is it "clean"?
+- [X] Diagram current states
 
 # Next
 
 - [ x ] Introduce State Machine with took profits and everything else
+- [ ] Review state diagram
+- [ ] Make the state inner classes named (non-anonymous) 
+- [ ] Testing states
 
+- [ ] Diagram new objective (add new states for new requirement)
+
+## Optional  
+- [ ] We_Hold state - is it "clean"? !not really selling / should liquidate
+- [ ] Clean Did_not_take_profit states - RefactorMeAlgorithm.this
+- [ ] Line 51 return this rather than named state
