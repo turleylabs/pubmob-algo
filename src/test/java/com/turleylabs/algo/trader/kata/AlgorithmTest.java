@@ -13,9 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
 public class AlgorithmTest {
     @Test
     public void approval_should_pass() {
@@ -57,18 +54,18 @@ public class AlgorithmTest {
     }
 
 
-    @Test
-    public void doesSomething() {
-        TestableAlgorithm refactorAlgorithm = new TestableAlgorithm();
-        Slice slice = new TestableSlice(LocalDate.of(2000, 1, 1), 10.0, 20.0);
-        refactorAlgorithm.onData(slice);
-
-
-        //check that something was added to Trades list
-        // add getter to Refactor me to expose trades
-        assertThat(refactorAlgorithm.getTrades(), is(not(empty())));
-
-    }
+//    @Test
+//    public void doesSomething() {
+//        TestableAlgorithm refactorAlgorithm = new TestableAlgorithm();
+//        Slice slice = new TestableSlice(LocalDate.of(2000, 1, 1), 10.0, 20.0);
+//        refactorAlgorithm.onData(slice);
+//
+//
+//        //check that something was added to Trades list
+//        // add getter to Refactor me to expose trades
+//        assertThat(refactorAlgorithm.getTrades(), is(not(empty())));
+//
+//    }
 
     public static class TestableAlgorithm extends RefactorMeAlgorithm {
         @Override

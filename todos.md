@@ -12,10 +12,13 @@
 
 # Next
 
-- [ x ] Introduce State Machine with took profits and everything else
-- [ ] Review state diagram
+- [x] Introduce State Machine with took profits and everything else
+- [x] Review state diagram
 - [ ] Make the state inner classes named (non-anonymous) 
+    - [x] extract conditionals
+    - [ ] Wrapping methods from BaseAlgorithm
 - [ ] Testing states
+- [x] Create state for 50day MA flag
 
 - [ ] Diagram new objective (add new states for new requirement)
 
@@ -23,3 +26,7 @@
 - [ ] We_Hold state - is it "clean"? !not really selling / should liquidate
 - [ ] Clean Did_not_take_profit states - RefactorMeAlgorithm.this
 - [ ] Line 51 return this rather than named state
+
+## State Diagram
+https://docs.google.com/drawings/d/1ACPp40CmuMe63efOmIy8IDz2IfcC0pbR8bS5wLg-Ya0/edit?usp=sharing
+
