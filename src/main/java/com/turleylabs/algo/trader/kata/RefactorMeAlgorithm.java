@@ -6,8 +6,9 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class RefactorMeAlgorithm extends BaseAlgorithm {
-
     public static final double USE_ALL_FUNDS = 1.0;
+    public static final String VIX = "VIX";
+
     public final ProfitState READY_TO_BUY = new ProfitState() {
         @Override
         public ProfitState onData(Slice data, String symbol, Averages averages) {
@@ -115,8 +116,8 @@ public class RefactorMeAlgorithm extends BaseAlgorithm {
             return;
         }
 
-        if (data.getCBOE("VIX") != null) {
-            lastVix = data.getCBOE("VIX");
+        if (data.getCBOE(VIX) != null) {
+            lastVix = data.getCBOE(VIX);
         }
 
         setState(data);
