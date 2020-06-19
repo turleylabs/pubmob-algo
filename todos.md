@@ -14,9 +14,10 @@
 
 - [x] Introduce State Machine with took profits and everything else
 - [x] Review state diagram
-- [ ] Make the state inner classes named (non-anonymous) 
+- [x] Make the state inner classes named (non-anonymous) 
     - [x] extract conditionals
-    - [ ] Wrapping methods from BaseAlgorithm
+    - [x] Wrapping methods from BaseAlgorithm
+    - [ ] Replace function arguments (in States Package) with interface
 - [ ] Testing states
 - [x] Create state for 50day MA flag
 
