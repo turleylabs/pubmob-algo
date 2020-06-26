@@ -4,7 +4,7 @@ This refactoring kata will test your ability to characterize legacy code and tra
 
 ## How to use this kata
 
-You are a developer at a hedge fund focused on algorithmic trading strategies. The hedge fund manager is not satisfied with their current algorithm and wants to get in on trades sooner. She says it is ok to initiate a buy when the VIX is greater than the threshold currently in the algorithm, as long as it closes two days in a row below half of it's most recent high. When it closes below the current threshold level, go back to just looking at the current level. When we enter early, we'll use half of the high plus three as our exit condition. For example, if the recent high is 60, we'll enter after two closes below 30 instead of waiting for it to drop below 19 (the default threshold). We'll exit if it rises back above 33. When it drops below 19, we'll go back to using 19 to buy and 22 to sell. 
+You are a developer at a hedge fund focused on algorithmic trading strategies. The hedge fund manager is not satisfied with their current algorithm and wants to get in on trades sooner. She says it is ok to initiate a buy when the VIX is greater than the threshold currently in the algorithm, as long as it (the VIX) closes two days in a row below half of it's most recent high. When it closes below the current threshold level, go back to just looking at the current level. When we enter early, we'll use half of the high plus three as our exit condition. For example, if the recent high is 60, we'll enter after two closes below 30 instead of waiting for it to drop below 19 (the default threshold). We'll exit if it rises back above 33. When it drops below 19, we'll go back to using 19 to buy and 22 to sell. 
 
 *"Make the change easy, then make the easy change." -- Kent Beck*
 
@@ -14,4 +14,4 @@ To get started, you'll need to add sufficient test coverage to make sure you do 
 
 Java 12
 
-Jeff L test
+DELETE THIS

@@ -19,6 +19,8 @@
     - [x] Wrapping methods from BaseAlgorithm
     - [ ] Replace function arguments (in States Package) with interface
 - [ ] Testing states
+    - [ ] Continue creating data/objects to get ReadyToBuyTest running
+    - [ ] Enumerate tests for ReadyToBuy state transitions (Bought Above 50, Bought Below 50, Do Not Buy)
 - [x] Create state for 50day MA flag
 
 - [ ] Diagram new objective (add new states for new requirement)
