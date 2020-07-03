@@ -1,18 +1,12 @@
 package com.turleylabs.algo.trader.kata.states;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.turleylabs.algo.trader.kata.Averages;
 import com.turleylabs.algo.trader.kata.RefactorMeAlgorithm;
-import com.turleylabs.algo.trader.kata.RefactorMeLogger;
-import com.turleylabs.algo.trader.kata.framework.CBOE;
-import com.turleylabs.algo.trader.kata.framework.Holding;
 import com.turleylabs.algo.trader.kata.framework.SimpleMovingAverage;
 import com.turleylabs.algo.trader.kata.framework.Slice;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.function.Consumer;
 
 class ReadyToBuyTest {
