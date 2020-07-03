@@ -9,10 +9,10 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.util.function.Consumer;
 
-class ReadyToBuyTest {
+public class ReadyToBuyTest {
 
   @Test
-  void basicBuyTest() {
+  public void basicBuyTest() {
     // arrange
     RefactorMeAlgorithm algorithm = new RefactorMeAlgorithm();
     Consumer<String> holdingsFunction = x -> {};
