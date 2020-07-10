@@ -82,10 +82,6 @@ public class RefactorMeAlgorithm extends BaseAlgorithm implements RefactorMeLogg
         return lastVix.getClose() > EXIT_THRESHOLD;
     }
 
-    public boolean hasLowVolatility(CBOE lastVix) {
-        return lastVix.getClose() < ENTRY_THRESHOLD;
-    }
-
     @Override
     public void log2(String logline) {
         log(logline);

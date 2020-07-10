@@ -17,10 +17,11 @@
 - [x] Make the state inner classes named (non-anonymous) 
     - [x] extract conditionals
     - [x] Wrapping methods from BaseAlgorithm
-    - [ ] Replace function arguments (in States Package) with interface
 - [ ] Testing states
-    - [ ] Continue creating data/objects to get ReadyToBuyTest running
+    - [x] Continue creating data/objects to get ReadyToBuyTest running
+    - [ ] Extract the shouldBuy predicate into an interface that we can then mock and inject into our test
     - [ ] Enumerate tests for ReadyToBuy state transitions (Bought Above 50, Bought Below 50, Do Not Buy)
+ 
 - [x] Create state for 50day MA flag
 
 - [ ] Diagram new objective (add new states for new requirement)

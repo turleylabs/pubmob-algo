@@ -1,0 +1,16 @@
+[100.0, 99.0, 102.0, 97.0, 101.0, 18.0] => State: WeHoldPositions{}
+logged value: Buy TQQQ Vix 18.0000. above 10 MA 0.0100
+holding value: TQQQ
+ 
+[100.0, 99.0, 98.0, 97.0, 101.0, 18.0] => State: BoughtAbove50{}
+logged value: Buy TQQQ Vix 18.0000. above 10 MA 0.0100
+holding value: TQQQ
+ 
+[102.0, 99.0, 102.0, 97.0, 101.0, 18.0] => State: ReadyToBuy{}
+logged value: 
+holding value: 
+ 
+[102.0, 99.0, 98.0, 97.0, 101.0, 18.0] => State: ReadyToBuy{}
+logged value: 
+holding value: 
+ 

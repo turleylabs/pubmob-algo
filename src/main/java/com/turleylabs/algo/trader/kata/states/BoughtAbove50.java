@@ -24,6 +24,11 @@ public class BoughtAbove50 extends ProfitState {
     }
 
     @Override
+    public String toString() {
+        return "BoughtAbove50{}";
+    }
+
+    @Override
     public ProfitState onData(Slice data, String symbol, Averages averages) {
         logger.logSellAction(data, averages, symbol, refactorMeAlgorithm.lastVix, portfolio);
 

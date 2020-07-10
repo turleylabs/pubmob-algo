@@ -24,6 +24,11 @@ public class WeHoldPositions extends ProfitState {
     }
 
     @Override
+    public String toString() {
+        return "WeHoldPositions{}";
+    }
+
+    @Override
     public ProfitState onData(Slice data, String symbol, Averages averages) {
         logger.logSellAction(data, averages, symbol, refactorMeAlgorithm.lastVix, portfolio);
 
