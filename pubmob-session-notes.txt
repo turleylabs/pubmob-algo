@@ -1,0 +1,28 @@
+2020-Jul-10
+    6 attendees
+
+1st hour spent w/ 4 devs wallowing through whitespace issues when accepting approvals diffs
+- absence of approvals testing experts (Emily B, Steve T)
+
+2nd hour flowed well as we shifted the approvals to a specific unit test.
+- focused on ensuring the unit test clearly described the reasons for state transition
+
+Retro thoughts:
+- we have a pattern where the first part of the 2 hour session is slow & tedious
+  * we aren't always focused on the todo list
+  * it's been a week and we've forgotten
+  * different mix of people
+  * key people aren't always there
+- we also have a driver + pair smell, where one person (perhaps the "expert") is
+doing most of the talking
+
+proposed remedies for next session:
+
+- don't forget to start by reviewing the TODO
+- call out the smells when they occur
+- shift to a strong navigator when some folks in the mob are unclear
+    (forces people to speak through what they think they understand)
+- any time we are bogging down, re-introduce the mini-retros at the end of a cycle of driver rotations (lineup? mob-adoro?)
+- consider ping-pong style if we are in the flow, not timer-based rotations
+
+
