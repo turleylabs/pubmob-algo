@@ -29,7 +29,7 @@ public class BoughtAbove50 extends ProfitState {
     }
 
     @Override
-    public ProfitState onData(Slice data, String symbol, Averages averages) {
+    public ProfitState onData(Slice data, String symbol, Averages averages, double lastVixClose) {
         logger.logSellAction(data, averages, symbol, refactorMeAlgorithm.lastVix, portfolio);
 
         if ((!averages.priceBelow50DayMovingAverage(data, symbol) &&

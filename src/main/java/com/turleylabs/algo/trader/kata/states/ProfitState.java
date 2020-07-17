@@ -4,5 +4,5 @@ import com.turleylabs.algo.trader.kata.Averages;
 import com.turleylabs.algo.trader.kata.framework.Slice;
 
 public abstract class ProfitState {
-    public abstract ProfitState onData(Slice data, String symbol, Averages averages);
+    public abstract ProfitState onData(Slice data, String symbol, Averages averages, double lastVixClose);
 }

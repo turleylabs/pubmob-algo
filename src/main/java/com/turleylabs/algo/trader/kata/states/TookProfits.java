@@ -12,7 +12,7 @@ public class TookProfits extends ProfitState {
     }
 
     @Override
-    public ProfitState onData(Slice data, String symbol, Averages averages) {
+    public ProfitState onData(Slice data, String symbol, Averages averages, double lastVixClose) {
         if (data.get(symbol).getPrice() < averages.movingAverage10.getValue()) {
             return refactorMeAlgorithm.READY_TO_BUY;
         }

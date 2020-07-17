@@ -19,9 +19,10 @@
     - [x] Wrapping methods from BaseAlgorithm
 - [ ] Testing states
     - [x] Continue creating data/objects to get ReadyToBuyTest running
-    - [ ] Extract the shouldBuy predicate into an interface that we can then mock and inject into our test
+    - [x] Extract the shouldBuy predicate into an interface that we can then mock and inject into our test
     - [ ] Enumerate tests for ReadyToBuy state transitions (Bought Above 50, Bought Below 50, Do Not Buy)
- 
+    - [ ] Assign value of `priceBelow50` appropriate to test name
+    - [ ] Clean up setup to make it obvious and make test narrative clear 
 - [x] Create state for 50day MA flag
 
 - [ ] Diagram new objective (add new states for new requirement)

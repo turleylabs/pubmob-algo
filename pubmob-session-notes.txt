@@ -1,3 +1,21 @@
+2020-Jul-17
+    5 attendees
+
+Onboarded Luis
+
+Extracted shouldBuy predicate
+Refactored, simplified and tidied test
+
+Retro thoughts:
+- Still takes time to get up to speed after a long break
+- New people still take time to get up to speed with tooling
+- This would not be such an issue on a day-to-day team, once set up it is pretty smooth
+- Might be best to let newbies simply join the lineup and watch, rather than give a dedicated brief
+- Once we got going, even with a new, non-java, developer; things went well
+- Its a great, energising, end to the week, I look forward to it a lot
+
+----------
+
 2020-Jul-10
     6 attendees
 

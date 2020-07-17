@@ -14,20 +14,22 @@ public class ReadyToBuy extends ProfitState {
     private final Consumer<String> setHoldingsFunction;
     private final Consumer<String> logFunction;
     RefactorMeLogger logger;
+    private final ShouldBuy shouldBuy;
 
-    public ReadyToBuy(RefactorMeAlgorithm algorithm, Consumer<String> holdingsFunction, Consumer<String> logFunction, RefactorMeLogger logger) {
+    public ReadyToBuy(RefactorMeAlgorithm algorithm, Consumer<String> holdingsFunction, Consumer<String> logFunction, RefactorMeLogger logger, ShouldBuy shouldBuy) {
         this.algorithm = algorithm;
         setHoldingsFunction = holdingsFunction;
         this.logFunction = logFunction;
         this.logger = logger;
+        this.shouldBuy = shouldBuy;
     }
 
     @Override
-    public ProfitState onData(Slice data, String symbol, Averages averages) {
-        if (shouldBuy(data, symbol, averages)) {
+    public ProfitState onData(Slice data, String symbol, Averages averages, double lastVixClose) {
+        if (shouldBuy.shouldBuy(data, symbol, averages, lastVixClose)) {
             String logLine = String.format("Buy %s Vix " + PRICE_FORMAT + ". above 10 MA %.4f",
                     symbol,
-                    algorithm.lastVix.getClose(),
+                    lastVixClose,
                     (data.get(symbol).getPrice() - averages.movingAverage10.getValue()) / averages.movingAverage10.getValue());
             logFunction.accept(logLine);
             setHoldingsFunction.accept(symbol);
@@ -39,15 +41,9 @@ public class ReadyToBuy extends ProfitState {
         return algorithm.READY_TO_BUY;
     }
 
-    private boolean shouldBuy(Slice data, String symbol, Averages averages) {
-        return averages.arePricesRisingNearTerm(data, symbol)
-                && !(averages.isPriceCloseToPeak(data, symbol))
-                && algorithm.lastVix.getClose() < RefactorMeAlgorithm.ENTRY_THRESHOLD
-                && averages.isPriceNearShortTermAverage(data, symbol);
-    }
-
     @Override
     public String toString() {
         return "ReadyToBuy{}";
     }
+
 }

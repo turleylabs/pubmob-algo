@@ -10,7 +10,7 @@ public class RefactorMeAlgorithm extends BaseAlgorithm implements RefactorMeLogg
     public static final double USE_ALL_FUNDS = 1.0;
     public static final String VIX = "VIX";
 
-    public final ProfitState READY_TO_BUY = new ReadyToBuy(this, symbol1 -> setHoldings(symbol1, USE_ALL_FUNDS), logLine1 -> log2(logLine1), this);
+    public final ProfitState READY_TO_BUY = new ReadyToBuy(this, symbol1 -> setHoldings(symbol1, USE_ALL_FUNDS), logLine1 -> log2(logLine1), this, new ShouldBuy());
     public final ProfitState WE_HOLD_POSITIONS = new WeHoldPositions(this, this::liquidate, RefactorMeAlgorithm.this.portfolio, this);
     public final ProfitState BOUGHT_ABOVE_50 = new BoughtAbove50(this, this::liquidate, RefactorMeAlgorithm.this.portfolio, this);
     public final ProfitState TOOK_PROFITS = new TookProfits(this);
@@ -59,7 +59,7 @@ public class RefactorMeAlgorithm extends BaseAlgorithm implements RefactorMeLogg
     }
 
     private void setState(Slice data) {
-        profitState = profitState.onData(data, symbol, averages);
+        profitState = profitState.onData(data, symbol, averages, lastVix.getClose());
     }
 
     @Override
