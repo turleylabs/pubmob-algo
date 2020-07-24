@@ -41,11 +41,12 @@ public class Averages {
                 && data.get(symbol).getPrice() >= (movingAverage200.getValue() * 1.40);
     }
 
-    public boolean priceBelow50DayMovingAverage(Slice data, String symbol) {
-        return data.get(symbol).getPrice() < (movingAverage50.getValue() * .93);
+    public boolean priceBelow50DayMAByAtLeast(Slice data, String symbol, double percent) {
+        return data.get(symbol).getPrice() < (movingAverage50.getValue() * (1 - percent));
     }
 
     public boolean isPriceNearShortTermAverage(Slice data, String symbol) {
         return (data.get(symbol).getPrice() - movingAverage10.getValue()) / movingAverage10.getValue() < 0.07;
     }
+
 }

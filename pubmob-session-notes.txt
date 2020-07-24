@@ -1,3 +1,12 @@
+2020-Jul-24
+    4 attendees
+- Refactored predicate out of ReadyToBuy into averages
+- Introduced two new tests for ReadyToBuy giving us full coverage
+- Refactored tests to improve readability and reinforce triggers
+- Some attendees had to leave early, ended with pairing
+- Uptick in flow as the meeting went on
+- Suggestion for next time to use strong navigator to promote communication amongst all mob members
+
 2020-Jul-17
     5 attendees
 

@@ -32,7 +32,7 @@ public class BoughtAbove50 extends ProfitState {
     public ProfitState onData(Slice data, String symbol, Averages averages, double lastVixClose) {
         logger.logSellAction(data, averages, symbol, refactorMeAlgorithm.lastVix, portfolio);
 
-        if ((!averages.priceBelow50DayMovingAverage(data, symbol) &&
+        if ((!averages.priceBelow50DayMAByAtLeast(data, symbol, .07) &&
                 !refactorMeAlgorithm.hasHighVolatility(refactorMeAlgorithm.lastVix) &&
                 !averages.did10DayMACrossBelow21DayMA())
                 && (averages.isPriceCloseToPeak(data, symbol))) {
@@ -40,14 +40,14 @@ public class BoughtAbove50 extends ProfitState {
             return refactorMeAlgorithm.TOOK_PROFITS;
         }
 
-        if (averages.priceBelow50DayMovingAverage(data, symbol) ||
+        if (averages.priceBelow50DayMAByAtLeast(data, symbol, .07) ||
                 refactorMeAlgorithm.hasHighVolatility(refactorMeAlgorithm.lastVix) ||
                 averages.did10DayMACrossBelow21DayMA() ||
                 averages.isPriceCloseToPeak(data, symbol)) {
             liquidateFunction.accept(symbol);
             return refactorMeAlgorithm.READY_TO_BUY;
         }
-        return refactorMeAlgorithm.WE_HOLD_POSITIONS;
+        return refactorMeAlgorithm.BOUGHT_BELOW_50;
     }
 
 }

@@ -11,7 +11,7 @@ public class RefactorMeAlgorithm extends BaseAlgorithm implements RefactorMeLogg
     public static final String VIX = "VIX";
 
     public final ProfitState READY_TO_BUY = new ReadyToBuy(this, symbol1 -> setHoldings(symbol1, USE_ALL_FUNDS), logLine1 -> log2(logLine1), this, new ShouldBuy());
-    public final ProfitState WE_HOLD_POSITIONS = new WeHoldPositions(this, this::liquidate, RefactorMeAlgorithm.this.portfolio, this);
+    public final ProfitState BOUGHT_BELOW_50 = new WeHoldPositions(this, this::liquidate, RefactorMeAlgorithm.this.portfolio, this);
     public final ProfitState BOUGHT_ABOVE_50 = new BoughtAbove50(this, this::liquidate, RefactorMeAlgorithm.this.portfolio, this);
     public final ProfitState TOOK_PROFITS = new TookProfits(this);
 
@@ -67,7 +67,7 @@ public class RefactorMeAlgorithm extends BaseAlgorithm implements RefactorMeLogg
         double close = lastVix.getClose();
         double change = (data.get(symbol).getPrice() - portfolio.get(symbol).getAveragePrice()) / portfolio.get(symbol).getAveragePrice();
 
-        if (averages.priceBelow50DayMovingAverage(data, symbol)) {
+        if (averages.priceBelow50DayMAByAtLeast(data, symbol, .07)) {
             log(String.format("Sell %s loss of 50 day. Gain %.4f. Vix %.4f", symbol, change, close));
         } else if (hasHighVolatility(lastVix)) {
             log(String.format("Sell %s high volatility. Gain %.4f. Vix %.4f", symbol, change, close));

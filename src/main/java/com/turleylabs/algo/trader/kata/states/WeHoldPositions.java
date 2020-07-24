@@ -46,6 +46,6 @@ public class WeHoldPositions extends ProfitState {
             liquidateFunction.accept(symbol);
             return refactorMeAlgorithm.READY_TO_BUY;
         }
-        return refactorMeAlgorithm.WE_HOLD_POSITIONS;
+        return refactorMeAlgorithm.BOUGHT_BELOW_50;
     }
 }
