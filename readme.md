@@ -12,5 +12,6 @@ To get started, you'll need to add sufficient test coverage to make sure you do 
 
 ## Requirements
 
-Java 12
+we think this only needs Java 11
+
 
