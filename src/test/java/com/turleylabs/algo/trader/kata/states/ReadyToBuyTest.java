@@ -65,6 +65,7 @@ public class ReadyToBuyTest {
         assertNotBought();
     }
 
+
     private void assertNotBought() {
         assertEquals("", holdingValue.toString());
     }
@@ -87,7 +88,7 @@ public class ReadyToBuyTest {
             };
     }
 
-    private Slice getSlice(double priceBelow50MA) {
+    public static Slice getSlice(double priceBelow50MA) {
         LocalDate tradeDate = LocalDate.of(2012, 1, 3);
         return new Slice(tradeDate) {
             @Override
@@ -97,7 +98,7 @@ public class ReadyToBuyTest {
         };
     }
 
-    private static Averages createAverages(double movingAverageWindowSize10, double movingAverageWindowSize21, double movingAverageWindowSize50, double movingAverageWindowSize200) {
+    public static Averages createAverages(double movingAverageWindowSize10, double movingAverageWindowSize21, double movingAverageWindowSize50, double movingAverageWindowSize200) {
         SimpleMovingAverage sma10 = new StubMovingAverage(TQQQ, 10, movingAverageWindowSize10);
         SimpleMovingAverage sma21 = new StubMovingAverage(TQQQ, 21, movingAverageWindowSize21);
         SimpleMovingAverage sma50 = new StubMovingAverage(TQQQ, 50, movingAverageWindowSize50);

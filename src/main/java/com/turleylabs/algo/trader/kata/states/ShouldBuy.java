@@ -6,6 +6,8 @@ import com.turleylabs.algo.trader.kata.framework.Slice;
 
 public class ShouldBuy {
     boolean shouldBuy(Slice data, String symbol, Averages averages, double lastVixClose) {
+
+        // create a memory
         return averages.arePricesRisingNearTerm(data, symbol)
                 && !(averages.isPriceCloseToPeak(data, symbol))
                 && lastVixClose < RefactorMeAlgorithm.ENTRY_THRESHOLD
