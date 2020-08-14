@@ -1,3 +1,9 @@
+Notes for next session
+ - [ ] should buy is incorrect, replace threshold
+ - [ ] finish cleanning tests
+ - [ ] previous test broken AlgorithmTests, somewhat excepted
+ - [ ] refactor mutation in should buy to better place
+
 # TODOS
 
 - [x] Make sure we are green

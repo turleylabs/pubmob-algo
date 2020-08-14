@@ -1,6 +1,7 @@
 package com.turleylabs.algo.trader.kata.states;
 
 import com.turleylabs.algo.trader.kata.Averages;
+import com.turleylabs.algo.trader.kata.RefactorMeAlgorithm;
 import com.turleylabs.algo.trader.kata.framework.Slice;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class ShouldBuy {
 
         return averages.arePricesRisingNearTerm(data, symbol)
                 && !(averages.isPriceCloseToPeak(data, symbol))
-                && lastVixClose < 1 // RefactorMeAlgorithm.ENTRY_THRESHOLD
+                && lastVixClose <  RefactorMeAlgorithm.ENTRY_THRESHOLD
                 && averages.isPriceNearShortTermAverage(data, symbol);
     }
 
