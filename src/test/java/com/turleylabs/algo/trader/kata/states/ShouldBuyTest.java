@@ -15,13 +15,11 @@ public class ShouldBuyTest {
         String symbol = "TQQQ";
         Averages averages = ReadyToBuyTest.createAverages(0,0,0,0);
 
-
         shouldBuy.shouldBuy(data, symbol, averages, (double) 100);
         shouldBuy.shouldBuy(data, symbol, averages, (double) 42);
         shouldBuy.shouldBuy(data, symbol, averages, (double) 40);
         boolean result = shouldBuy.shouldBuy(data, symbol, averages, (double) 40);
-        Assert.assertTrue(result);
-
+        Assert.assertEquals(true, result);
     }
 }
 
