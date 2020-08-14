@@ -21,5 +21,20 @@ public class ShouldBuyTest {
         boolean result = shouldBuy.shouldBuy(data, symbol, averages, (double) 40);
         Assert.assertEquals(true, result);
     }
+    @Test
+    public void nothingShouldBuy(){
+        var shouldBuy = new ShouldBuy();
+        var data = ReadyToBuyTest.getSlice(100);
+        String symbol = "TQQQ";
+        Averages averages = ReadyToBuyTest.createAverages(0,0,0,0);
+
+        shouldBuy.shouldBuy(data, symbol,  averages, (double) 50);
+        shouldBuy.shouldBuy(data, symbol, averages, (double) 42);
+        shouldBuy.shouldBuy(data, symbol, averages, (double) 40);
+        boolean result = shouldBuy.shouldBuy(data, symbol, averages, (double) 40);
+        Assert.assertEquals(false, result);
+    }
+
+
 }
 
