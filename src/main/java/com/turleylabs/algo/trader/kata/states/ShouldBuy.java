@@ -16,22 +16,18 @@ public class ShouldBuy {
     // as long as it (the VIX) closes two days in a row below half of it's most recent high
 
     boolean shouldBuy(Slice data, String symbol, Averages averages, double lastVixClose) {
+        boolean result =
+                averages.arePricesRisingNearTerm(data, symbol)
+                && !(averages.isPriceCloseToPeak(data, symbol))
+                && vixRule(lastVixClose, RefactorMeAlgorithm.ENTRY_THRESHOLD)
+                && averages.isPriceNearShortTermAverage(data, symbol);
 
         day.add(0, lastVixClose);
-
-        // two days memory
-        if (vixRulesStateBuy()) {
-            return true;
-        }
-
-        return averages.arePricesRisingNearTerm(data, symbol)
-                && !(averages.isPriceCloseToPeak(data, symbol))
-                && lastVixClose <  RefactorMeAlgorithm.ENTRY_THRESHOLD
-                && averages.isPriceNearShortTermAverage(data, symbol);
+        return result;
     }
 
-    private boolean vixRulesStateBuy() {
-        return twoDaysInARowBelowHalfOfTheHigh();
+    public boolean vixRule(double lastVixClose, double entryThreshold) {
+        return lastVixClose < entryThreshold || twoDaysInARowBelowHalfOfTheHigh();
     }
 
     private boolean twoDaysInARowBelowHalfOfTheHigh() {
@@ -41,7 +37,9 @@ public class ShouldBuy {
         Stream<Double> stream = day.stream();
         OptionalDouble optionalDouble = stream.mapToDouble(n -> n.doubleValue()).max();
         this.halfHigh = optionalDouble.getAsDouble() / 2;
-        return  day.get(0) < this.halfHigh && day.get(1) < this.halfHigh;
+        Double oneDayAgo = day.get(0);
+        Double twoDaysAgo = day.get(1);
+        return  oneDayAgo < this.halfHigh && twoDaysAgo < this.halfHigh;
     }
 
 }
