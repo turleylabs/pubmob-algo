@@ -25,6 +25,11 @@ public class ShouldBuyTest {
     }
 
     @Test
+    public void textVixRule() {
+
+    }
+
+    @Test
     public void testShouldNotBuySolelyOnlyBecauseOfVixRule() {
         Averages averages = ReadyToBuyTest
                 .createAverages(100.0, 99.0, 102.0, 97.0);
