@@ -26,10 +26,10 @@ public class ShouldBuy {
     }
 
     public boolean vixRule(double lastVixClose, double entryThreshold) {
-        return lastVixClose < entryThreshold || twoDaysInARowBelowHalfOfTheHigh();
+        return lastVixClose < entryThreshold || twoDaysInARowBelowHalfOfTheHigh(day);
     }
 
-    private boolean twoDaysInARowBelowHalfOfTheHigh() {
+    private static boolean twoDaysInARowBelowHalfOfTheHigh(ArrayList<Double> day) {
         if ( day.size() < 2) {
             return false;
         }
