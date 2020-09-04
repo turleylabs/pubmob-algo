@@ -1,8 +1,14 @@
 Notes for next session
+ - [ ] ShouldBuy tests were broken on Sept 3rd - need to fix
+
+
  - [ ] should buy is incorrect, replace threshold
- - [ ] finish cleanning tests
+ - [ ] finish cleaning tests
  - [ ] previous test broken AlgorithmTests, somewhat excepted
  - [ ] refactor mutation in should buy to better place
+
+
+
 
 # TODOS
 

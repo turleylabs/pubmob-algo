@@ -21,6 +21,7 @@ public class ShouldBuyTest {
         double day4 = 40;
         boolean finalDayBought = true;
 
+        // TODO - we have not added any data to the list of lastVixCloseHistory - getting a index out of range exception
         verifyShouldBuy(finalDayBought, day1, day2, day3, day4);
     }
 
@@ -32,6 +33,7 @@ public class ShouldBuyTest {
         var data = ReadyToBuyTest.getSlice(priceBelow50MA);
         String symbol = "TQQQ";
 
+        // TODO - we have not added any data to the list of lastVixCloseHistory - getting a index out of range exception
         boolean result = new ShouldBuy().shouldBuy(data, symbol, averages, 40);
         Assert.assertEquals(false, result);
 
