@@ -1,14 +1,8 @@
 Notes for next session
- - [ ] ShouldBuy tests were broken on Sept 3rd - need to fix
-
-
- - [ ] should buy is incorrect, replace threshold
- - [ ] finish cleaning tests
- - [ ] previous test broken AlgorithmTests, somewhat excepted
- - [ ] refactor mutation in should buy to better place
-
-
-
+ - [ ] add tests for Averages
+ - [ ] ShouldBuy tests are testing lower level predicate details; we want to simplify to stub them and just ensure the boolean combinations
+ - [ ] should buy is incorrect, replace threshold ??
+ - [ ] previous test broken AlgorithmTests, somewhat excepted (approvals--not working)
 
 # TODOS
 
