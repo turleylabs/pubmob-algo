@@ -14,17 +14,28 @@ public class VixRuleTest {
         double entryThreshold = 0.0;
         vixCloseHistory.dailyVixCloses = Arrays.asList(0.0);
 
-        boolean result = VixRule.apply(entryThreshold, vixCloseHistory);
+        boolean result = new VixRule().apply(entryThreshold, vixCloseHistory);
 
         Assert.assertFalse(result);
     }
 
     @Test
+    public void failsWhenInsufficientDays_2() {
+        double entryThreshold = 0.0;
+        vixCloseHistory.dailyVixCloses = Arrays.asList();
+
+        boolean result = new VixRule().apply(entryThreshold, vixCloseHistory);
+
+        Assert.assertFalse(result);
+    }
+
+
+    @Test
     public void passesWhenLastVixCloseIsLessThanEntryThreshold() {
         double entryThreshold = 100.0;
-        vixCloseHistory.dailyVixCloses = Arrays.asList(entryThreshold - 1.0);
+        vixCloseHistory.dailyVixCloses = Arrays.asList(entryThreshold - 1.0, 50.0);
 
-        boolean result = VixRule.apply(entryThreshold, vixCloseHistory);
+        boolean result = new VixRule().apply(entryThreshold, vixCloseHistory);
 
         Assert.assertTrue(result);
     }
@@ -32,11 +43,10 @@ public class VixRuleTest {
     @Test
     public void passesWhenTwoDaysInARowAreBelowHalfOfTheHigh() {
         double entryThreshold = 19.0;
-
         var daysMustAscend = Arrays.asList(entryThreshold + 1.0, entryThreshold + 2.0, entryThreshold * 3);
         vixCloseHistory.dailyVixCloses = daysMustAscend;
 
-        boolean result = VixRule.apply(entryThreshold, vixCloseHistory);
+        boolean result = new VixRule().apply(entryThreshold, vixCloseHistory);
 
         Assert.assertTrue(result);
     }
@@ -44,11 +54,10 @@ public class VixRuleTest {
     @Test
     public void failsWhenOneDayAgoAboveHalfHigh() {
         double entryThreshold = 19.0;
-
         double high = entryThreshold * 3.0;
         vixCloseHistory.dailyVixCloses = Arrays.asList(high / 2 + 1.0, entryThreshold + 2.0, high);
 
-        boolean result = VixRule.apply(entryThreshold, vixCloseHistory);
+        boolean result = new VixRule().apply(entryThreshold, vixCloseHistory);
 
         Assert.assertFalse(result);
     }
@@ -56,11 +65,10 @@ public class VixRuleTest {
     @Test
     public void failsWhenTwoDayAgoAboveHalfHigh() {
         double entryThreshold = 19.0;
-
         double high = entryThreshold * 3.0;
         vixCloseHistory.dailyVixCloses = Arrays.asList(high / 2 + 1.0, high / 2 + 1.0, high);
 
-        boolean result = VixRule.apply(entryThreshold, vixCloseHistory);
+        boolean result = new VixRule().apply(entryThreshold, vixCloseHistory);
 
         Assert.assertFalse(result);
     }

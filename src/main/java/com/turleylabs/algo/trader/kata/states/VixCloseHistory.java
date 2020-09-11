@@ -25,4 +25,12 @@ public class VixCloseHistory {
     public Double lastVixClose() {
         return dailyVixCloses.get(0);
     }
+
+    boolean isLastVixCloseLowerThan(double entryThreshold) {
+        return lastVixClose() < entryThreshold;
+    }
+
+    public boolean enoughHistory(){
+        return dailyVixCloses.size() >= 2;
+    }
 }

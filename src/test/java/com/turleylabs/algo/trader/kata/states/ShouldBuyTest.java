@@ -6,67 +6,74 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 public class ShouldBuyTest {
+
+    public static final String SYMBOL = "TQQQ";
+    public static final VixRule FAILED_VIX_RULE = new VixRule() {
+        @Override
+        public boolean apply(double entryThreshold, VixCloseHistory vixCloseHistory) {
+            return false;
+        }
+    };
+    public static final VixRule PASSED_VIX_RULE = new VixRule() {
+        @Override
+        public boolean apply(double entryThreshold, VixCloseHistory vixCloseHistory) {
+            return true;
+        }
+    };
+
     // new functionality test stub.
     // Goal:  initiate a buy when the VIX is greater than the threshold currently in the algorithm,
     // as long as it (the VIX) closes two days in a row below half of it's most recent high
     @Test
     public void shouldBuyHiLoLoLo(){
-
-        // given that the reason that this does not work is only the VIX buy rule,
-        // then this SHOULD work
-        
-        double day1 = 100;
-        double day2 = 42;
-        double day3 = 40;
-        double day4 = 40;
-        boolean finalDayBought = true;
-
-        // TODO - we have not added any data to the list of lastVixCloseHistory - getting a index out of range exception
-        verifyShouldBuy(finalDayBought, day1, day2, day3, day4);
-    }
-
-    @Test
-    public void testShouldNotBuySolelyOnlyBecauseOfVixRule() {
-        Averages averages = ReadyToBuyTest
+        var days = new double[]{100, 42, 40, 40};
+        var averages = ReadyToBuyTest
                 .createAverages(100.0, 99.0, 102.0, 97.0);
         var priceBelow50MA = averages.movingAverage50.getValue() - 1;
         var data = ReadyToBuyTest.getSlice(priceBelow50MA);
-        String symbol = "TQQQ";
 
-        // TODO - we have not added any data to the list of lastVixCloseHistory - getting a index out of range exception
-        boolean result = new ShouldBuy().shouldBuy(data, symbol, averages, 40);
-        Assert.assertEquals(false, result);
+        var result = new ShouldBuy().shouldBuy(data, SYMBOL, averages, days[3]);
 
-        var shouldBuy = new ShouldBuy(){
-            @Override
-            public boolean vixRule(double lastVixClose, double entryThreshold) {
-                return true;
-            }
-        };
-        result = shouldBuy.shouldBuy(data, symbol, averages, 40);
         Assert.assertEquals(true, result);
     }
 
-
-    @Ignore
     @Test
-    public void loHiLoLoHiHoHiHo(){
-        verifyShouldBuy(false, (double) 50, (double) 42, (double) 40, (double) 40);
-    }
-
-    private void verifyShouldBuy(boolean finalDayBought, double... days) {
-        Averages averages = ReadyToBuyTest
+    public void shouldNotBuyLoHiLoLo(){
+        var days = new double[]{(double) 50, (double) 42, (double) 40, (double) 40};
+        var averages = ReadyToBuyTest
                 .createAverages(100.0, 99.0, 102.0, 97.0);
-        var shouldBuy = new ShouldBuy();
         var priceBelow50MA = averages.movingAverage50.getValue() - 1;
         var data = ReadyToBuyTest.getSlice(priceBelow50MA);
-        String symbol = "TQQQ";
 
-        Assert.assertFalse(shouldBuy.shouldBuy(data, symbol, averages, days[0]));
-        Assert.assertFalse(shouldBuy.shouldBuy(data, symbol, averages, days[1]));
-        Assert.assertFalse(shouldBuy.shouldBuy(data, symbol, averages, days[2]));
-        boolean result = shouldBuy.shouldBuy(data, symbol, averages, days[3]);
-        Assert.assertEquals(finalDayBought, result);
+        var  result = new ShouldBuy().shouldBuy(data, SYMBOL, averages, days[3]);
+
+        Assert.assertEquals(false, result);
+    }
+
+    @Test
+    public void shouldNotBuyWhenVixRuleFails() {
+        var averages = ReadyToBuyTest
+                .createAverages(100.0, 99.0, 102.0, 97.0);
+        var priceBelow50MA = averages.movingAverage50.getValue() - 1;
+        var data = ReadyToBuyTest.getSlice(priceBelow50MA);
+        var shouldBuy = new ShouldBuy(FAILED_VIX_RULE);
+
+        var result = shouldBuy.shouldBuy(data, SYMBOL, averages, 40);
+
+        Assert.assertEquals(false, result);
+    }
+
+    @Test
+    public void shouldBuyWhenVixRulePasses() {
+        var averages = ReadyToBuyTest
+                .createAverages(100.0, 99.0, 102.0, 97.0);
+        var priceBelow50MA = averages.movingAverage50.getValue() - 1;
+        var data = ReadyToBuyTest.getSlice(priceBelow50MA);
+        var shouldBuy = new ShouldBuy(PASSED_VIX_RULE);
+
+        var result = shouldBuy.shouldBuy(data, SYMBOL, averages, 40);
+
+        Assert.assertEquals(true, result);
     }
 }
 
