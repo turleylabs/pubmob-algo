@@ -4,7 +4,7 @@ import com.turleylabs.algo.trader.kata.framework.SimpleMovingAverage;
 
 public class StubMovingAverage extends SimpleMovingAverage {
 
-    private final double value;
+    private double value;
 
     public StubMovingAverage(String symbol, int windowSize, double value) {
         super(symbol, windowSize);
@@ -20,4 +20,6 @@ public class StubMovingAverage extends SimpleMovingAverage {
     public boolean isReady() {
         return true;
     }
+
+    public void setValue(int i) { this.value = i; }
 }

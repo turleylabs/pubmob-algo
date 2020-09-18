@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertTrue;
+
 public class VixRuleTest {
 
     private final VixCloseHistory vixCloseHistory = new VixCloseHistory();
@@ -37,7 +39,7 @@ public class VixRuleTest {
 
         boolean result = new VixRule().apply(entryThreshold, vixCloseHistory);
 
-        Assert.assertTrue(result);
+        assertTrue(result);
     }
 
     @Test
@@ -48,7 +50,7 @@ public class VixRuleTest {
 
         boolean result = new VixRule().apply(entryThreshold, vixCloseHistory);
 
-        Assert.assertTrue(result);
+        assertTrue(result);
     }
 
     @Test
@@ -72,5 +74,4 @@ public class VixRuleTest {
 
         Assert.assertFalse(result);
     }
-
 }
